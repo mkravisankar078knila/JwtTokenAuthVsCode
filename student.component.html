@@ -1,0 +1,71 @@
+
+<form novalidate #form="ngForm" (submit)="onSubmit(form)">
+    <h3 class="display-4 text-center">Student Detail Register</h3>
+    <input type="hidden" name="Code"
+    [value]="service.formdata.code" />
+    <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Student No</label>
+            <input class="form-control form-control-lg" placeholder="StudentNo" name="StudentNo"
+            #StudentNo="ngModel" [(ngModel)]="service.formdata.studentNo" required maxlength="50" minlength="1"
+            [class.invalid]="StudentNo.invalid && StudentNo.touched">
+        </div>
+        <div class="form-group">
+            <label>Name</label>
+            <input class="form-control form-control-lg" placeholder="Full Name" name="Name"
+            #Name="ngModel" [(ngModel)]="service.formdata.name" required maxlength="50" minlength="1"
+            [class.invalid]="Name.invalid && Name.touched">
+        </div>
+        <div class="form-group">
+            <label>Father Name</label>
+            <input class="form-control form-control-lg" placeholder="Father Name" name="FatherName"
+            #FatherName="ngModel" [(ngModel)]="service.formdata.fatherName" 
+            required maxlength="50" minlength="1"
+            [class.invalid]="FatherName.invalid && FatherName.touched">
+        </div>
+        <div class="form-group">
+            <label>Mobile No</label>
+            <input class="form-control form-control-lg" placeholder="10 Digit Number" 
+            name="MobileNo" #MobileNo="ngModel" [(ngModel)]="service.formdata.mobileNo" 
+            required maxlength="10" minlength="10"  [class.invalid]="MobileNo.invalid && MobileNo.touched">
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input class="form-control form-control-lg" placeholder="Email" 
+            name="Email" #Email="ngModel" [(ngModel)]="service.formdata.email" 
+            required maxlength="50" minlength="5" [class.invalid]="Email.invalid && Email.touched">
+        </div>
+
+        <div class="form-group">
+            <button class="form-control form-control-lg" type="submit" [disabled]="form.invalid">Submit</button>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>StudentNo</th>
+                    <th>Name</th>
+                    <th>FatherName</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let st of service.list">
+                    <td (click)="populateForm(st)">{{st.studentNo}}</td>
+                    <td>{{st.name}}</td>
+                    <td>{{st.fatherName}}</td>
+                    <td>{{st.email}}</td>
+                    <td>{{st.mobileNo}}</td>
+                    <td>
+                        <i class="fa fa-trash-alt fa-lg text-danger" (click)="onDelete(st.code)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</form>
